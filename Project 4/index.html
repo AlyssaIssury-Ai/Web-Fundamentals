@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rock Paper Scissors ✨</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎀 Rock • Paper • Scissors 🎀</h1>
+    
+    <div class="game-area">
+      <div class="choices">
+        <button class="rps" onclick="play('rock')">🪨</button>
+        <button class="rps" onclick="play('paper')">📄</button>
+        <button class="rps" onclick="play('scissors')">✂️</button>
+      </div>
+
+      <div class="result" id="resultText">Make your move!</div>
+
+      <div class="scoreboard">
+        <p>💖 Wins: <span id="wins">0</span></p>
+        <p>💔 Losses: <span id="losses">0</span></p>
+        <p>🤝 Ties: <span id="ties">0</span></p>
+      </div>
+
+      <button class="reset-btn" onclick="resetGame()">🔄 Reset</button>
+    </div>
+  </div>
+
+  <script>
+    let wins = 0, losses = 0, ties = 0;
+
+    function play(playerChoice) {
+      const choices = ['rock', 'paper', 'scissors'];
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
+      const resultText = document.getElementById('resultText');
+
+      let result = '';
+      if (playerChoice === computerChoice) {
+        result = "It's a Tie! 🤝";
+
+        ties++;
+        document.getElementById('ties').innerText = ties;
+      } else if (
+        (playerChoice === 'rock' && computerChoice === 'scissors') ||
+        (playerChoice === 'paper' && computerChoice === 'rock') ||
+        (playerChoice === 'scissors' && computerChoice === 'paper')
+      ) {
+        result = 'You Win! 🎉';
+        wins++;
+        document.getElementById('wins').innerText = wins;
+      } else {
+        result = 'You Lose! 😭';
+        losses++;
+        document.getElementById('losses').innerText = losses;
+      }
+
+      resultText.innerText = result;
+      resultText.classList.remove('fade');
+      void resultText.offsetWidth;
+      resultText.classList.add('fade');
+    }
+
+    function resetGame() {
+      wins = losses = ties = 0;
+      document.getElementById('wins').innerText = 0;
+      document.getElementById('losses').innerText = 0;
+      document.getElementById('ties').innerText = 0;
+      document.getElementById('resultText').innerText = 'Make your move!';
+    }
+  </script>
+</body>
+</html>
